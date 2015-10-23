@@ -1,0 +1,231 @@
+# Feedhenry Mobile with backend & mbaas services
+
+To run this project locally instead of using the `feedhenry.openshift.com` server, some modifications have been done within the code generated as described hereafter.
+
+## Modifications done on the generated code of Feedhenry
+
+* Change the port number of the `mbaas-service/application.js` file to run on 8010 by editing the application.js file 
+
+```
+var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8010;
+```
+
+* Add within the `grunt.js` file of the backend-service the env var to setup the mapping between the service running by the mbaas server & the key
+
+```
+    env : {
+      options : {},
+      // environment variables - see https://github.com/jsoverson/grunt-env for more information
+      local: {
+        FH_USE_LOCAL_DB: true,
+        FH_SERVICE_MAP: function() {
+          var serviceMap = {
+            '0123456789ABCDEFGHIJKLMN': 'http://127.0.0.1:8010',
+``` 
+* Include the missing required module within the `lib/hello.js` script of the backend-service
+
+```         
+var $fh = require('fh-mbaas-api');
+``` 
+
+* Replace the existing code with the `$fh.service` to call our `mbaas service`
+
+```
+hello.post('/', function (req, res) {
+        console.log(new Date(), 'CLOUD called');
+        console.log(new Date(), 'In hello route POST / req.body=', req.body);
+        var world = req.body && req.body.hello ? req.body.hello : 'World';
+
+        $fh.service({
+            //guid: "PFi1ftKRBvlp-qSmgdcOeGe3",
+            guid: "0123456789ABCDEFGHIJKLMN",
+            path: "/hello",
+            method: "POST",
+            params: {
+                "hello": "world"
+            }
+        }, function (err, data) {
+            if (err) {
+                // An error occurred during the call to the service. log some debugging information
+                console.log('service call failed - err : ', err);
+
+                // see http://expressjs.com/4x/api.html#res.json
+                res.json({msg: JSON.stringify(body)});
+            }
+            console.log(data);
+
+            // see http://expressjs.com/4x/api.html#res.json
+            res.json({msg: JSON.stringify(data)});
+        });
+    });
+
+```
+
+# Run HelloWorld Mobile application
+
+* Open 3 Unix terminal & launch these grunt commands to start the Client, backend & mbaas services
+
+## Nodejs server exposing the REST Services used by the HTML client
+
+* Move to the client-cordova` and execute these commands to install
+  the node javascript modules and start the node js server
+
+```
+    npm install
+    grunt serve:local
+```
+
+Remark : When we use the option local, feedhenry will access the backend server locally using the addressed passd as parameter to the url
+
+## Nodejs server processing the REST requests & sending them to the MBaas Service
+
+* Move to the `backend-service` directory and execute these commands to install
+  the node javascript modules and start the node js server
+
+```
+    npm install
+    grunt serve
+```
+
+Remark : The backend system will access the mbaas service using the address of the server defined within the `FH_SERICE_MAP` env var & using the guid key `0123456789ABCDEFGHIJKLMN`
+
+## Nodejs server consuming the REST requests & populating the response
+
+* Move to the `mbaas-service` directory and execute these commands to install
+  the node javascript modules and start the node js server
+
+```
+    npm install
+    grunt serve
+```
+
+## Use Cordova client
+
+To use the Cordova technology in order to wrap our code to run a Hybrid Mobile solution that we can emaulate or run on IOS or Android, the following modifications
+have been done to the project
+
+* Add a config.xml file containing the info about the cordova project within directory client-cordova` & `client-ionic`
+
+```
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="%id%" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>%appname%</name>
+    <description>
+        This is simple JS App, built using Cordova
+    </description>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+</widget>
+```
+
+Replace %id% with a package name (e.g. : org.fuse.feedhenry.js) and %appname% with the name of the application (e.g. : Fuse Feedhenry JS App)
+
+* Next install globally cordova & grunt-cordovacli (opional)
+
+```
+npm install cordova@latest --save
+npm install grunt-cordovacli --save-dev
+```
+
+* Add the different mobile platforms (browser, ios, android) that we would like to test using the cordova client.
+
+```
+cordova platform add browser
+cordova platform add ios
+cordova platform add android
+```
+
+* Some docs references concerning JBDS & Mobile, Ionic Angularjs mobile framework & Android SDK config issues
+
+    * http://stackoverflow.com/questions/29396252/cordova-error-please-install-android-target-android-21
+    * http://stackoverflow.com/questions/26355645/error-in-launching-avd
+    * http://blog.arungupta.me/cordova-ios-android-tech-tip/
+    * https://access.redhat.com/articles/1400613
+    * http://stackoverflow.com/questions/28604648/ionic-requires-android-target-19-i-have-target-21-installed
+    * http://forum.ionicframework.com/t/adding-ionic-css-js-components-to-an-existing-phonegap-angularjs-project/1285
+
+* Build the project to generate the code
+
+```
+cordova build browser
+cordova build ios
+cordova build android
+```
+
+* Launch a local HTTP Server to serve the content
+
+```
+cordova serve 9002
+```
+
+or use the emulator
+
+```
+cordova serve 9002 &
+cordova emulate ios
+```
+
+* Open the Browser and point to this address for Ios or the browser
+
+```
+http://localhost:9002/ios/www/?url=http://localhost:8001
+http://localhost:9002/browser/www/?url=http://localhost:8001
+```
+
+## Use Ionic Mobile framework & Feedhenry
+
+Feedhenry can be used with AngularJS & Ionic Mobile javascript frameworks. To use the ionic client & the mobile framework developed by [http://ionicframework.com/]Ionic, we must install
+the nodejs client as such :
+
+```
+npm install -g ionic
+```
+
+The client-cordova project has been created from the feedhenry template `quickstart-ionic-app` where next, we have changed the code `hello.js` file, added cordova `config.xml` and copy/paste
+the feedhenry.js file (version 2.10).
+
+Next, we have added the required platforms, build the code & start a local server or the ios, android emulator.
+
+```
+ionic platform add ios
+ionic platform add android
+ionic platform add browser
+
+ionic build ios
+ionic build android
+ionic build browser
+```
+
+* To emulate IoS or Android
+
+For the reason explaied within the ionic documentation, we have installed `genymotion` and create a VM machine in Virtualbox to emulate `Google Nexus 10`
+
+```
+ionic emulate android
+ionic run ios
+```
+
+Remark : Check with ionic team how we could pass the parameter of the url to be used
+
+* To use the browser platform
+
+```
+ionic serve -t browser -p 9200
+```
+
+* Open a browser & access the web resources at this address when you use the browser platform
+
+```
+http://localhost:9200/?ionicplatform=browser&url=http://localhost:8001#/
+```
+
+## Doc/Questions
+
+* Is there a grunt file available somewhere to launch grunt task for the cordova client & where we can pass as parameter the platform to be used (ios, browser, android) ?
+
+* Doc about npm cordova, cordova generator & cordova client :
+    * https://www.npmjs.com/package/generator-cordova
+    * https://www.npmjs.com/package/cordova
+    * https://www.npmjs.com/package/grunt-cordovacli
