@@ -12,7 +12,7 @@ var myApp = angular.module('myApp', ['ionic', 'ngRoute',
 myApp.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'views/example.html',
+            templateUrl: 'views/blog.html',
             controller: 'MainCtrl'
         })
 });
