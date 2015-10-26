@@ -1,0 +1,36 @@
+<ion-modal-view>
+
+    <!-- Header bar -->
+    <ion-header-bar class="bar-secondary">
+        <h1 class="title">New Article</h1>
+        <button class="button button-clear button-positive" ng-click="closeNewArticle()">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Content area -->
+    <ion-content>
+
+        <form ng-submit="createArticle(task)">
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" id="bId" placeholder="Blog id" ng-model="bId">
+                </label>
+                <label class="item item-input">
+                    <input type="text" id="bTitle" placeholder="Enter Your Title Here" ng-model="bTitle">
+                </label>
+                <label class="item item-input">
+                    <input type="text" id="bDescription" placeholder="Description of the article"
+                           ng-model="bDescription">
+                </label>
+                <label class="item item-input">
+                    <input type="date" id="bDate" placeholder="Publication date" ng-model="bDate">
+                </label>
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block button-dark">Post Article</button>
+            </div>
+        </form>
+
+    </ion-content>
+
+</ion-modal-view>
+
