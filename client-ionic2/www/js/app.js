@@ -1,4 +1,4 @@
-angular.module('todo', ['ionic'])
+angular.module('blog', ['ionic'])
 
   /**
    * The Projects factory handles saving and loading projects
@@ -36,6 +36,14 @@ angular.module('todo', ['ionic'])
 
   .controller('BlogCtrl', function ($scope, $ionicModal, $timeout, Projects, $ionicSideMenuDelegate) {
 
+    // Load or initialize projects
+    $scope.projects = Projects.all();
+
+    // Grab the last active, or the first project
+    $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
+
+    /*
+
     // A utility function for creating a new project
     // with the given projectTitle
     var createProject = function (projectTitle) {
@@ -44,12 +52,6 @@ angular.module('todo', ['ionic'])
       Projects.save($scope.projects);
       $scope.selectProject(newProject, $scope.projects.length - 1);
     }
-
-    // Load or initialize projects
-    $scope.projects = Projects.all();
-
-    // Grab the last active, or the first project
-    $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
 
     // Called to create a new project
     $scope.newProject = function () {
@@ -64,7 +66,7 @@ angular.module('todo', ['ionic'])
       $scope.activeProject = project;
       Projects.setLastActiveIndex(index);
       $ionicSideMenuDelegate.toggleLeft(false);
-    };
+    };*/
 
     // Create our modal
     $ionicModal.fromTemplateUrl('templates/new-article.html', function (modal) {
@@ -96,7 +98,7 @@ angular.module('todo', ['ionic'])
       $scope.taskModal.hide();
     }
 
-    $scope.toggleProjects = function () {
+/*    $scope.toggleProjects = function () {
       $ionicSideMenuDelegate.toggleLeft();
     };
 
@@ -116,4 +118,5 @@ angular.module('todo', ['ionic'])
       }
     });
 
-  });
+
+  */});
