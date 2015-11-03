@@ -5,12 +5,17 @@ var blog = angular.module('blog.controllers', ['blog.services']);
 blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
     $scope.articles = articleService.query();
 
-    $scope.addArticle = function(article) {
-        
+    $scope.addArticle = function (article) {
+
         // check if article is defined
         if (article.id) {
 
-            $scope.articles.push({id: article.id, title: article.title, description: article.description, date: article.date});
+            $scope.articles.push({
+                id: article.id,
+                title: article.title,
+                description: article.description,
+                date: article.date
+            });
 
             fhcloud('articles', article, 'POST')
                 .then(function (response) {
@@ -40,9 +45,25 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
     }).then(function (modal) {
         $scope.modal = modal;
     });
-})
+});
 
-blog.controller('ArticleCtrl', function ($scope, articleService, fhcloud, $stateParams) {
+blog.controller('SearchByUserCtrl', function ($scope, fhcloud) {
+
+    $scope.articles = {};
+    $scope.searchByUser = function (user) {
+        fhcloud('articles/searchuser/' + user.name, null, 'GET')
+            .then(function (response) {
+                $scope.articles = response;
+            })
+            .catch(function (msg, err) {
+                //If the cloud call fails
+                $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
+                $scope.textClassName = "ion-close-round";
+            });
+    };
+});
+
+blog.controller('ArticleCtrl', function ($scope, fhcloud, $stateParams) {
     fhcloud('articles/' + $stateParams.articleId, null, 'GET')
         .then(function (response) {
             $scope.article = response;
@@ -53,5 +74,5 @@ blog.controller('ArticleCtrl', function ($scope, articleService, fhcloud, $state
             $scope.textClassName = "ion-close-round";
             console.log("Get an error !");
         });
-    
+
 });

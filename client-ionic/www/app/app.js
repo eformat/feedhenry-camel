@@ -41,7 +41,8 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
             url: '/searchuser',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/searchbyuser.html'
+                    templateUrl: 'views/searchbyuser.html',
+                    controller: 'SearchByUserCtrl'
                 }
             }
         })

@@ -7,14 +7,28 @@ var articles = [
     {id:6, title:'My cool article 6', description:'This is a blog article ...', date:'16-11-2015'}
 ];
 
+var request = require('request')
+
 exports.findAll = function (req, res, next) {
+    console.log("Service Find All called");
     res.send(articles);
 };
 
 exports.findById = function (req, res, next) {
+    console.log("Service FindById called");    
     var id = req.params.id;
     res.send(articles[id]);
 };
+
+exports.findByUser = function(req, res, next) {
+    console.log("Service FindByUser called");
+    var user = req.params.user;
+    request('http://localhost:9191/blog/article/search/user/' + user, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        }
+    })
+}
 
 exports.newPost = function (req, res) {
     var article = req.body;
