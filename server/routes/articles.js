@@ -18,8 +18,6 @@ exports.findById = function (req, res, next) {
 
 exports.newPost = function (req, res) {
     var article = req.body;
-    console.log("Article received : " + article.title, "," + article.id + ", " + article.description + ", " + article.date);
     articles.push(article);
     console.log(articles);
-    //res.send(articles);
 };

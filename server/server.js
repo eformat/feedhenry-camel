@@ -1,9 +1,7 @@
 var express = require('express'),
     bodyParser      = require('body-parser'),
     methodOverride  = require('method-override'),
-    sessions        = require('./routes/sessions'),
-    playlists       = require('./routes/playlists'),
-    articles        = require('./routes/articles')
+    blogService        = require('./routes/articles')
     app = express();
 
 app.use(bodyParser.json());
@@ -19,14 +17,9 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.get('/sessions', sessions.findAll);
-app.get('/sessions/:id', sessions.findById);
-app.get('/playlists', playlists.findAll);
-app.get('/playlists/:id', playlists.findById);
-app.get('/articles', articles.findAll);
-app.get('/articles/:id', articles.findById);
-
-app.post('/articles', articles.newPost);
+app.get('/articles', blogService.findAll);
+app.get('/articles/:id', blogService.findById);
+app.post('/articles', blogService.newPost);
 
 app.set('port', process.env.PORT || 5000);
 
