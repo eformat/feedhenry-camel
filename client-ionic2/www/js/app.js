@@ -74,7 +74,7 @@ angular.module('blog', ['ionic', 'blog.controllers'])
 /* Controllers */
 angular.module('blog.controllers', ['backend.services'])
 
-  .controller('ArticlesCtrl', function ($scope, $ionicModal,articleService) {
+  .controller('ArticlesCtrl', function ($scope, $ionicModal, articleService, $timeout) {
     $scope.articles = articleService.query();
 
     // Create our modal
@@ -86,10 +86,11 @@ angular.module('blog.controllers', ['backend.services'])
     });
 
     $scope.addArticle = function(a) {
-      articleService.save(a);
-      $scope.articles.push({ id: a.id, title: a.title, description: a.description, date: a.date });
-      $scope.$apply();
-      $scope.modal.hide();
+      $timeout(function() {
+        articleService.save(a);
+        $scope.articles.push({id: a.id, title: a.title, description: a.description, date: a.date});
+        $scope.modal.hide();
+      });
     };
   })
 
