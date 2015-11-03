@@ -4,18 +4,14 @@ var express = require('express'),
     blogService        = require('./routes/articles')
     app = express();
 
+var cors = require('cors');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(methodOverride());      // simulate DELETE and PUT
-
-// CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-    next();
-});
+app.use(cors());
 
 app.get('/articles', blogService.findAll);
 app.get('/articles/:id', blogService.findById);

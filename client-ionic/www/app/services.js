@@ -9,12 +9,12 @@ blog.factory('articleService', function ($resource) {
 
 blog.service('fhcloud', function ($q) {
 
-    return function (cloudEndpoint, data) {
+    return function (cloudEndpoint, data, operation) {
         var defer = $q.defer();
 
         var params = {
             path: cloudEndpoint,
-            method: "GET",
+            method: operation,
             contentType: "application/json",
             data: data,
             timeout: 15000

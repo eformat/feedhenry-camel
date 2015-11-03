@@ -78,7 +78,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
              * One of these functions will be called when the $fh.cloud function has completed successully or encountered
              * an error.
              */
-            fhcloud('hello', {hello: article.title})
+            fhcloud('articles', article, 'POST')
                 .then(function (response) {
                     // If successful, display the length  of the string.
                     if (response.msg != null && typeof(response.msg) !== 'undefined') {
