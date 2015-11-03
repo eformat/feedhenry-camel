@@ -19,7 +19,7 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
             url: '/app',
             abstract: true,
             templateUrl: 'views/menu.html',
-            controller: 'MainCtrl'
+            controller: 'ArticlesCtrl'
         })
         .state('app.about', {
             url: '/about',
