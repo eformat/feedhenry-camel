@@ -1,5 +1,5 @@
 'use strict';
 
-var myApp = angular.module('myApp.services', []);
+var blog = angular.module('blog.services', []);
 
-myApp.factory('', function() {});
+blog.factory('', function() {});

@@ -1,13 +1,13 @@
 'use strict';
 
-var myApp = angular.module('myApp.directives', []);
+var blog = angular.module('blog.directives', []);
 
-myApp.directive('fhfooter', function() {
+blog.directive('fhfooter', function() {
     return {
         scope: {},
         restrict: 'E',
         replace: true,
-        templateUrl: 'views/components/footer.html',
+        templateUrl: 'views/footer.html',
         link: function(scope, elem, attrs, ctrl) {
             scope.version = attrs.version;
         }

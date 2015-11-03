@@ -1,8 +1,8 @@
 'use strict';
 
-var myApp = angular.module('myApp.controllers', ['fhcloud']);
+var blog = angular.module('blog.controllers', ['fhcloud']);
 
-myApp.controller('MainCtrl', function($scope, fhcloud) {
+blog.controller('MainCtrl', function($scope, fhcloud) {
   
   $scope.version = "1.0";
   
