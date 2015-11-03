@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" ng-controller="ArticlesCtrl">
 
     <!-- Content of the Side Menu -->
     <ion-side-menu-content>
@@ -20,13 +20,10 @@
     <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
             <h1 class="title">Articles</h1>
-            <button class="button button-icon ion-plus" ng-click="newArticle()"></button>
+            <button class="button button-icon ion-compose" ng-click="modal.show()"></button>
         </ion-header-bar>
         <ion-content scroll="false">
             <ion-list>
-                <ion-item menu-close ng-click="login()">
-                    Login
-                </ion-item>
                 <ion-item menu-close href="#/app/about">
                     About
                 </ion-item>
