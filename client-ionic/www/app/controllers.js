@@ -1,6 +1,6 @@
 'use strict';
 
-var blog = angular.module('blog.controllers', ['fhcloud', 'blog.services']);
+var blog = angular.module('blog.controllers', ['blog.services']);
 
 blog.controller('MainCtrl', function ($scope, fhcloud) {
 
@@ -65,17 +65,12 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
 
     // add function to pass userInput to cloud via
     // $fh.cloud call to controller scope
-    $scope.sayHello = function () {
-        var article = $scope.article;
-
-        //Notifying the user that the cloud endpoint is being called.
-        $scope.noticeMessage = "Calling Cloud Endpoint";
-        $scope.textClassName = "ion-loading-c";
-
-        console.log("Article id : " + article.id);
-
-        // check if userInput is defined
+    $scope.sayHello = function(article) {
+        
+        // check if article is defined
         if (article.id) {
+
+            $scope.articles.push({id: article.id, title: article.title, description: article.description, date: article.date});
             /**
              * Pass the userInput to the service containing the $fh.cloud call.
              *
@@ -90,6 +85,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
                         var resp = response.msg;
                         $scope.noticeMessage = resp.msg + ", Date : " + timeConverter(resp.timestamp);
                         $scope.textClassName = "ion-checkmark-round";
+                        console.log("Response : " + resp.msg + ", Date : " + timeConverter(resp.timestamp));
                     } else {
                         $scope.noticeMessage = "Error: Expected a message from $fh.cloud.";
                         $scope.textClassName = "ion-close-round";
@@ -100,6 +96,8 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
                     $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
                     $scope.textClassName = "ion-close-round";
                 });
+
+            $scope.modal.hide();
         }
     };
 

@@ -2,8 +2,7 @@
 
 var blog = angular.module('blog', ['ionic',
     'blog.controllers',
-    'blog.directives',
-    'fhcloud']);
+    'blog.directives']);
 
 blog.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
