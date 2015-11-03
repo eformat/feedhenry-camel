@@ -16,7 +16,7 @@ angular.module('blog', ['ionic', 'blog.controllers'])
     });
   })
 
-  .config(function ($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $stateProvider
       .state('app', {
         url: '/app',
@@ -53,8 +53,7 @@ angular.module('blog', ['ionic', 'blog.controllers'])
         url: '/articles',
         views: {
           'menuContent': {
-            templateUrl: 'templates/articles.html',
-            controller: 'ArticlesCtrl'
+            templateUrl: 'templates/articles.html'
           }
         }
       })
@@ -75,6 +74,7 @@ angular.module('blog', ['ionic', 'blog.controllers'])
 angular.module('blog.controllers', ['backend.services'])
 
   .controller('ArticlesCtrl', function ($scope, $ionicModal, articleService, $timeout) {
+    // var articles = articleService.query();
     $scope.articles = articleService.query();
 
     // Create our modal
@@ -85,12 +85,10 @@ angular.module('blog.controllers', ['backend.services'])
       $scope.modal = modal;
     });
 
-    $scope.addArticle = function(a) {
+    $scope.addArticle = function (a) {
       $scope.articles.push({id: a.id, title: a.title, description: a.description, date: a.date});
-      $timeout(function() {
-        articleService.save(a);
-        $scope.modal.hide();
-      });
+      articleService.save(a);
+      $scope.modal.hide();
     };
   })
 
