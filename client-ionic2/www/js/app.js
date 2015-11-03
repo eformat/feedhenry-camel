@@ -26,7 +26,12 @@ angular.module('blog', ['ionic', 'blog.controllers'])
       })
       .state('app.about', {
         url: '/about',
-        templateUrl: 'templates/about.html'
+        // Views is required as avout is a nested view defined under app
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/about.html'
+          }
+        }
       })
       .state('app.searchid', {
         url: '/searchid',
