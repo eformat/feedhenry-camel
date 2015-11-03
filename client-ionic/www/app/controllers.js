@@ -9,14 +9,16 @@ myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
   // add function to pass userInput to cloud via
   // $fh.cloud call to controller scope
   $scope.sayHello = function() {
-    var userInput = $scope.userInput;
+    var article = $scope.article;
 
     //Notifying the user that the cloud endpoint is being called.
     $scope.noticeMessage = "Calling Cloud Endpoint";
     $scope.textClassName = "ion-loading-c";
+    
+    console.log("Article id : " + article.id);
 
     // check if userInput is defined
-    if (userInput) {
+    if (article.id) {
       /**
        * Pass the userInput to the service containing the $fh.cloud call.
        *
@@ -24,7 +26,7 @@ myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
        * One of these functions will be called when the $fh.cloud function has completed successully or encountered
        * an error.
        */
-      fhcloud('hello', { hello: userInput })
+      fhcloud('hello', { hello: article.title })
         .then(function(response){
           // If successful, display the length  of the string.
           if (response.msg != null && typeof(response.msg) !== 'undefined') {

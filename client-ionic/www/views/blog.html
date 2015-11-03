@@ -5,28 +5,25 @@
         </div>
     </ion-header-bar>
 
-    <ion-content has-header="true" ng-controller="MainCtrl">
-        <div class="row" >
-            <div id="main" class="col col-offset-10 col-80" >
-                <div class="card">
-                    <label class="item-input">
-                        <input type="text" id="bId" placeholder="Blog id" ng-model="bId">
-                    </label>
-                    <label class="item-input">
-                        <input type="text" id="bTitle" placeholder="Enter Your Title Here" ng-model="bTitle">
-                    </label>
-                    <label class="item-input">
-                        <input type="text" id="bDescription" placeholder="Description of the article" ng-model="bDescription">
-                    </label>
-                    <label class="item-input">
-                        <input type="date" id="bDate" placeholder="Publication date" ng-model="bDate">
-                    </label>
-                </div>
-                <button class="button button-block button-positive icon-right ion-chevron-right" ng-click="sayHello()">Add a blog</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col col-offset-10 col-80"><h3 id="greeting"> <i class="icon {{textClassName}}"></i>  {{noticeMessage}}</h3></div>
+    <ion-content class="padding" ng-controller="MainCtrl">
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" id="id" placeholder="Blog id" ng-model="article.id">
+            </label>
+            <label class="item item-input">
+                <input type="text" id="title" placeholder="Enter Your Title Here" ng-model="article.title">
+            </label>
+            <label class="item item-input">
+                <input type="text" id="desc" placeholder="Description's article" ng-model="article.description">
+            </label>
+            <label class="item item-input">
+                <input type="date" id="date" placeholder="Publication date" ng-model="article.date">
+            </label>
+            <button class="button button-block button-positive icon-right ion-chevron-right"
+                    ng-click="sayHello(article)">Add it !
+            </button>
+            <div class="col col-offset-10 col-80"><h3 id="greeting"><i class="icon {{textClassName}}"></i>
+                {{noticeMessage}}</h3></div>
         </div>
     </ion-content>
 
