@@ -2,7 +2,7 @@
 
 var myApp = angular.module('myApp.controllers', ['fhcloud']);
 
-myApp.controller('MainCtrl', function($scope, $q, fhcloud) {
+myApp.controller('MainCtrl', function($scope, fhcloud) {
   
   $scope.version = "1.0";
   
