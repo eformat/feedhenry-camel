@@ -21,15 +21,12 @@ angular.module('blog', ['ionic', 'blog.controllers'])
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'templates/menu.html'
+        templateUrl: 'templates/menu.html',
+        controller: 'ArticlesCtrl'
       })
       .state('app.about', {
         url: '/about',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/about.html'
-          }
-        }
+        templateUrl: 'templates/about.html'
       })
       .state('app.searchid', {
         url: '/searchid',
@@ -65,8 +62,6 @@ angular.module('blog', ['ionic', 'blog.controllers'])
           }
         }
       });
-    // Disable caching
-    $ionicConfigProvider.views.maxCache(0);
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/articles')
   })
@@ -86,9 +81,9 @@ angular.module('blog.controllers', ['backend.services'])
     });
 
     $scope.addArticle = function(a) {
+      $scope.articles.push({id: a.id, title: a.title, description: a.description, date: a.date});
       $timeout(function() {
         articleService.save(a);
-        $scope.articles.push({id: a.id, title: a.title, description: a.description, date: a.date});
         $scope.modal.hide();
       });
     };
