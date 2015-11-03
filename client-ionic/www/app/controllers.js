@@ -3,7 +3,7 @@
 var blog = angular.module('blog.controllers', ['blog.services']);
 
 blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
-    $scope.articles = articleService.query();
+    /*$scope.articles = articleService.query();*/
 
     $scope.addArticle = function (article) {
 
@@ -47,12 +47,13 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
     });
 });
 
-blog.controller('SearchByUserCtrl', function ($scope, fhcloud) {
+blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
 
-    $scope.articles = {};
+    $scope.articles = articleService.articleList;
     $scope.searchByUser = function (user) {
         fhcloud('articles/searchuser/' + user.name, null, 'GET')
             .then(function (response) {
+                articleService.replaceArticles(response);
                 $scope.articles = response;
             })
             .catch(function (msg, err) {
@@ -61,10 +62,14 @@ blog.controller('SearchByUserCtrl', function ($scope, fhcloud) {
                 $scope.textClassName = "ion-close-round";
             });
     };
+    /*$scope.showDetail = function($stateParams) {
+        $scope.article = $scope.articles.entries[$stateParams.articleId];
+    }*/
 });
 
-blog.controller('ArticleCtrl', function ($scope, fhcloud, $stateParams) {
-    fhcloud('articles/' + $stateParams.articleId, null, 'GET')
+blog.controller('ArticleCtrl', function ($scope, $stateParams) {
+    /*
+        fhcloud('articles/' + $stateParams.articleId, null, 'GET')
         .then(function (response) {
             $scope.article = response;
         })
@@ -74,5 +79,7 @@ blog.controller('ArticleCtrl', function ($scope, fhcloud, $stateParams) {
             $scope.textClassName = "ion-close-round";
             console.log("Get an error !");
         });
+        */
+    $scope.article = $scope.articles.entries[$stateParams.articleId];
 
 });

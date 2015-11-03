@@ -13,7 +13,7 @@
         
         <ion-list>
             <ion-item ng-repeat="article in articles" href="#/app/article/{{article.id}}">
-                {{article.title}}
+                Title : {{article.title}}, posted on :{{article.postDate}}
             </ion-item>
         </ion-list>
     </ion-content>

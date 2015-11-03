@@ -2,7 +2,8 @@
 
 var blog = angular.module('blog', ['ionic',
     'blog.controllers',
-    'blog.directives']);
+    'blog.directives',
+    'blog.services']);
 
 blog.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -59,7 +60,11 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'menuContent': {
                     templateUrl: 'views/article.html',
-                    controller: 'ArticleCtrl'
+                    controller: function ($scope, $stateParams, articleService) {
+                        /* console.log("Article : " + articleService.getArticle([$stateParams.articleId])); */
+                        console.log("ID : " + $stateParams.articleId);
+                        $scope.article = articleService.getArticleById([$stateParams.articleId]);
+                    }
                 }
             }
         });

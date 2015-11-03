@@ -2,9 +2,11 @@
 
 var blog = angular.module('blog.services', ['ngResource']);
 
+/*
 blog.factory('articleService', function ($resource) {
     return $resource('http://localhost:5000/articles/:articleId');
 })
+*/
 
 
 blog.service('fhcloud', function ($q) {
@@ -24,4 +26,28 @@ blog.service('fhcloud', function ($q) {
 
         return defer.promise;
     };
+});
+
+blog.service('articleService', function() {
+
+    this.articleList = {};
+
+    this.addArticle = function(article) {
+        this.articleList.push(article);
+    };
+
+    this.getArticles = function(){
+        return this.articleList;
+    };
+
+    this.getArticleById = function(index) {
+        for (var i=0, iLen=this.articleList.length; i<iLen; i++) {
+            if (this.articleList[i].id == index) return this.articleList[i];
+        }
+    };
+
+    this.replaceArticles = function(articles) {
+        this.articleList = articles;
+    };
+
 });

@@ -25,6 +25,7 @@ exports.findByUser = function(req, res, next) {
     var user = req.params.user;
     request('http://localhost:9191/blog/article/search/user/' + user, function (error, response, body) {
         if (!error && response.statusCode == 200) {
+            console.log(body);
             res.send(body);
         }
     })
