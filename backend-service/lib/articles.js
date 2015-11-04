@@ -11,13 +11,28 @@ var request = require('request')
 
 exports.findAll = function (req, res, next) {
     console.log("Service Find All called");
-    res.send(articles);
+    request('http://localhost:9200/blog/_search?pretty=true&q=*:*', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var jsonData = JSON.parse(body);
+            var result = [];
+            var hits = jsonData.hits.hits;
+            for (var i = 0; i < hits.length; i++) {
+                result.push(hits[i]._source);
+            }
+            res.send(JSON.stringify(result));
+        }
+    })
 };
 
 exports.findById = function (req, res, next) {
     console.log("Service FindById called");    
     var id = req.params.id;
-    res.send(articles[id]);
+    request('http://localhost:9191/blog/article/search/id/' + id, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.send(body);
+        }
+    })
 };
 
 exports.findByUser = function(req, res, next) {

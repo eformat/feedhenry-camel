@@ -9,9 +9,7 @@ var blogService = require('./lib/articles');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
-// fhlint-begin: securable-endpoints
-securableEndpoints = ['/hello'];
-// fhlint-end
+// securableEndpoints = ['/hello'];
 
 var app = express();
 
@@ -35,13 +33,12 @@ app.use(express.static(__dirname + '/public'));
 // Note: important that this is added just before your own Routes
 app.use(mbaasExpress.fhmiddleware());
 
-// fhlint-begin: custom-routes
-app.use('/hello', require('./lib/hello.js')());
+// app.use('/hello', require('./lib/hello.js')());
+
 app.get('/articles', blogService.findAll);
-app.get('/articles/:id', blogService.findById);
+app.get('/articles/searchid/:id', blogService.findById);
 app.get('/articles/searchuser/:user', blogService.findByUser)
 app.post('/articles', blogService.newPost);
-// fhlint-end
 
 // Important that this is last!
 app.use(mbaasExpress.errorHandler());
