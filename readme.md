@@ -1,4 +1,4 @@
-# Feedhenry Mobile with backend & mbaas services
+# Feedhenry Mobile & JBoss Fuse Service
 
 To run this project locally instead of using the `feedhenry.openshift.com` server, some modifications have been done within the code generated as described hereafter.
 
