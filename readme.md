@@ -213,7 +213,9 @@ ionic run android
 ionic run ios
 ```
 
-Remark : Check with ionic team how we could pass the parameter of the url to be used
+Remark : 
+- Check with ionic team how we could pass the parameter of the url to be used
+- Test with Ios 6 as we have permissions issues on android Samsung
 
 * To collect Android logs
 
