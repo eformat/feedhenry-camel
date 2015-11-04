@@ -13,6 +13,7 @@ exports.findAll = function (req, res, next) {
             for (var i = 0; i < hits.length; i++) {
                 result.push(hits[i]._source);
             }
+            console.log(JSON.stringify(result));
             res.send(JSON.stringify(result));
         }
     })
@@ -43,7 +44,7 @@ exports.findByUser = function(req, res, next) {
 exports.newPost = function (req, res) {
     console.log("Service New Post called");
     var article = req.body;
-    var articleCleaned = '{"id":"' + article.id + '","user":"' + article.user + '","title":"' + article.title + '","body":"' + article.description + '","postDate":"' + article.date + '"}';
+    var articleCleaned = '{"id":"' + article.id + '","user":"' + article.user + '","title":"' + article.title + '","body":"' + article.body + '","postDate":"' + article.postDate + '"}';
     console.log(articleCleaned);
     request({method: "PUT",
              uri: 'http://localhost:9191/blog/article',

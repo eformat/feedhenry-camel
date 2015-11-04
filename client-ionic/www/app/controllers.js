@@ -9,20 +9,11 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
         // check if article is defined
         if (article.id) {
 
-            /*
-            $scope.articles.push({
-                id: article.id,
-                title: article.title,
-                description: article.description,
-                date: article.date
-            });
-            */
-
             articleService.addArticle(article);
 
             fhcloud('articles', article, 'POST')
                 .then(function (response) {
-                    console.log("Message encoded");
+                    console.log("Blog Article encoded for this id : " + response);
                 })
                 .catch(function (msg, err) {
                     //If the cloud call fails
@@ -44,6 +35,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
 });
 
 blog.controller('FindAllCtrl', function ($scope, fhcloud, articleService) {
+    $scope.articles = {};
     fhcloud('articles/', null, 'GET')
         .then(function (response) {
             articleService.replaceArticles(response);
@@ -54,6 +46,7 @@ blog.controller('FindAllCtrl', function ($scope, fhcloud, articleService) {
             $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
             $scope.textClassName = "ion-close-round";
         });
+
 });
 
 blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
