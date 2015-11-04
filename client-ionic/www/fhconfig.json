@@ -3,6 +3,6 @@
   "appkey": "",
   "apptitle": "My Hello World App",
   "connectiontag": "1.0.0",
-  "host": "http://localhost",
+  "host": "http://127.0.0.1",
   "projectid": ""
 }
