@@ -1,7 +1,7 @@
 <ion-view view-title="Articles">
   <ion-content>
     <ion-list>
-        <ion-item ng-repeat="article in articles" href="#/app/article/{{article.id}}">
+        <ion-item ng-repeat="article in articles | orderBy:['user','title']" href="#/app/article/{{article.id}}">
             Title : {{article.title}}, posted on : {{article.postDate}}, by : {{article.user}}
         </ion-item>
     </ion-list>

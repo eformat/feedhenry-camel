@@ -5,7 +5,10 @@ var blog = angular.module('blog', ['ionic',
     'blog.directives',
     'blog.services']);
 
-blog.config(function ($stateProvider, $urlRouterProvider) {
+blog.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+    $ionicConfigProvider.views.maxCache(0);
+    
     $stateProvider
         .state('app', {
             url: '/app',
