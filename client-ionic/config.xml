@@ -4,7 +4,7 @@
   <description>
         This is simple Feedhenry Ionic JS App integrated with Apache Camel
     </description>
-  <content src="index.html?url='http://127.0.0.1:8001'"/>
+  <content src="index.html"/>
   <access origin="*"/>
   <preference name="fullscreen" value="true"/>
   <preference name="webviewbounce" value="true"/>
