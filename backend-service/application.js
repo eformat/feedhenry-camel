@@ -9,7 +9,7 @@ var blogService = require('./lib/articles');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
-// securableEndpoints = ['/hello'];
+// securableEndpoints = ['/articles'];
 
 var app = express();
 
@@ -32,8 +32,6 @@ app.use(express.static(__dirname + '/public'));
 
 // Note: important that this is added just before your own Routes
 app.use(mbaasExpress.fhmiddleware());
-
-// app.use('/hello', require('./lib/hello.js')());
 
 app.get('/articles', blogService.findAll);
 app.get('/articles/searchid/:id', blogService.findById);
