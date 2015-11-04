@@ -7,14 +7,6 @@ var blog = angular.module('blog', ['ionic',
 
 blog.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        /*
-        .state('/', {
-            templateUrl: 'views/blog.html',
-            controller: 'MainCtrl'
-        });
-        // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/')
-        */
         .state('app', {
             url: '/app',
             abstract: true,
@@ -23,10 +15,19 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('app.about', {
             url: '/about',
-            // Views is required as avout is a nested view defined under app
+            // Views is required as about is a nested view defined under app
             views: {
                 'menuContent': {
                     templateUrl: 'views/about.html'
+                }
+            }
+        })
+        .state('app.articles', {
+            url: '/articles',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/articles.html',
+                    controller: 'FindAllCtrl'
                 }
             }
         })
@@ -34,7 +35,8 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
             url: '/searchid',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/searchbyid.html'
+                    templateUrl: 'views/searchbyid.html',
+                    controller: 'SearchByIdCtrl'
                 }
             }
         })
@@ -47,24 +49,12 @@ blog.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('app.articles', {
-            url: '/articles',
-            views: {
-                'menuContent': {
-                    templateUrl: 'views/articles.html'
-                }
-            }
-        })
         .state('app.article', {
             url: '/article/:articleId',
             views: {
                 'menuContent': {
                     templateUrl: 'views/article.html',
-                    controller: function ($scope, $stateParams, articleService) {
-                        /* console.log("Article : " + articleService.getArticle([$stateParams.articleId])); */
-                        console.log("ID : " + $stateParams.articleId);
-                        $scope.article = articleService.getArticleById([$stateParams.articleId]);
-                    }
+                    controller: 'ArticleCtrl'
                 }
             }
         });

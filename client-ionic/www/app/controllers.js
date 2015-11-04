@@ -3,30 +3,26 @@
 var blog = angular.module('blog.controllers', ['blog.services']);
 
 blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
-    /*$scope.articles = articleService.query();*/
 
     $scope.addArticle = function (article) {
 
         // check if article is defined
         if (article.id) {
 
+            /*
             $scope.articles.push({
                 id: article.id,
                 title: article.title,
                 description: article.description,
                 date: article.date
             });
+            */
+
+            articleService.addArticle(article);
 
             fhcloud('articles', article, 'POST')
                 .then(function (response) {
-                    if (response.msg != null && typeof(response.msg) !== 'undefined') {
-                        var resp = response.msg;
-                        $scope.noticeMessage = resp.msg;
-                        $scope.textClassName = "ion-checkmark-round";
-                    } else {
-                        $scope.noticeMessage = "Error: Expected a message from $fh.cloud.";
-                        $scope.textClassName = "ion-close-round";
-                    }
+                    console.log("Message encoded");
                 })
                 .catch(function (msg, err) {
                     //If the cloud call fails
@@ -47,9 +43,21 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
     });
 });
 
-blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
+blog.controller('FindAllCtrl', function ($scope, fhcloud, articleService) {
+    fhcloud('articles/', null, 'GET')
+        .then(function (response) {
+            articleService.replaceArticles(response);
+            $scope.articles = response;
+        })
+        .catch(function (msg, err) {
+            //If the cloud call fails
+            $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
+            $scope.textClassName = "ion-close-round";
+        });
+});
 
-    $scope.articles = articleService.articleList;
+blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
+    $scope.articles = {};
     $scope.searchByUser = function (user) {
         fhcloud('articles/searchuser/' + user.name, null, 'GET')
             .then(function (response) {
@@ -62,24 +70,26 @@ blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
                 $scope.textClassName = "ion-close-round";
             });
     };
-    /*$scope.showDetail = function($stateParams) {
-        $scope.article = $scope.articles.entries[$stateParams.articleId];
-    }*/
 });
 
-blog.controller('ArticleCtrl', function ($scope, $stateParams) {
-    /*
-        fhcloud('articles/' + $stateParams.articleId, null, 'GET')
-        .then(function (response) {
-            $scope.article = response;
-        })
-        .catch(function (msg, err) {
-            //If the cloud call fails
-            $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
-            $scope.textClassName = "ion-close-round";
-            console.log("Get an error !");
-        });
-        */
-    $scope.article = $scope.articles.entries[$stateParams.articleId];
+blog.controller('SearchByIdCtrl', function ($scope, fhcloud, articleService) {
+    $scope.articles = {};
+    $scope.searchById = function (articleid) {
+        fhcloud('articles/searchid/' + articleid, null, 'GET')
+            .then(function (response) {
+                articleService.cleanArticles();
+                articleService.addArticle(response);
+                $scope.articles = articleService.getArticles();
+            })
+            .catch(function (msg, err) {
+                //If the cloud call fails
+                $scope.noticeMessage = "$fh.cloud failed. Error: " + JSON.stringify(err);
+                $scope.textClassName = "ion-close-round";
+            });
+    };
+});
 
+blog.controller('ArticleCtrl', function ($scope, $stateParams, articleService) {
+    console.log("ID : " + $stateParams.articleId);
+    $scope.article = articleService.getArticleById([$stateParams.articleId]);
 });

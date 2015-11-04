@@ -30,11 +30,15 @@ blog.service('fhcloud', function ($q) {
 
 blog.service('articleService', function() {
 
-    this.articleList = {};
+    this.articleList = [];
 
     this.addArticle = function(article) {
         this.articleList.push(article);
     };
+    
+    this.cleanArticles = function() {
+        this.articleList = [];
+    }
 
     this.getArticles = function(){
         return this.articleList;

@@ -8,6 +8,7 @@
     "fh-mbaas-api": "~4.11.0",
     "mocha": "^2.1.0",
     "request": "~2.40.0",
+    "request-debug": "~0.2.0",
     "method-override": "^2.0.2"
   },
   "devDependencies": {
