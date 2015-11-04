@@ -11,7 +11,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
 
             articleService.addArticle(article);
 
-            fhcloud('articles', article, 'POST')
+            fhcloud('/articles', article, 'POST')
                 .then(function (response) {
                     console.log("Blog Article encoded for this id : " + response);
                 })
@@ -36,7 +36,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
 
 blog.controller('FindAllCtrl', function ($scope, fhcloud, articleService) {
     $scope.articles = {};
-    fhcloud('articles/', null, 'GET')
+    fhcloud('/articles/', null, 'GET')
         .then(function (response) {
             articleService.replaceArticles(response);
             $scope.articles = response;
@@ -52,7 +52,7 @@ blog.controller('FindAllCtrl', function ($scope, fhcloud, articleService) {
 blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
     $scope.articles = {};
     $scope.searchByUser = function (user) {
-        fhcloud('articles/searchuser/' + user.name, null, 'GET')
+        fhcloud('/articles/searchuser/' + user.name, null, 'GET')
             .then(function (response) {
                 articleService.replaceArticles(response);
                 $scope.articles = response;
@@ -68,7 +68,7 @@ blog.controller('SearchByUserCtrl', function ($scope, fhcloud, articleService) {
 blog.controller('SearchByIdCtrl', function ($scope, fhcloud, articleService) {
     $scope.articles = {};
     $scope.searchById = function (articleid) {
-        fhcloud('articles/searchid/' + articleid, null, 'GET')
+        fhcloud('/articles/searchid/' + articleid, null, 'GET')
             .then(function (response) {
                 articleService.cleanArticles();
                 articleService.addArticle(response);

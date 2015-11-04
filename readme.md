@@ -207,13 +207,20 @@ We launch the Samsung Galaxy VM Box
 VBoxManage list vms
 VBoxManage startvm gui {38ec0571-d491-4a68-aea6-a67749e89ff1}
 
-or launch genymotion client manually
+or launch genymotion client manually and next the Samsung VB
 
 ionic run android
 ionic run ios
 ```
 
 Remark : Check with ionic team how we could pass the parameter of the url to be used
+
+* To collect Android logs
+
+```
+adb connect 192.168.65.101:5555
+adb logcat
+```
 
 * To use the browser platform
 
