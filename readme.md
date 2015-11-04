@@ -200,10 +200,16 @@ ionic build browser
 
 * To emulate IoS or Android
 
-For the reason explaied within the ionic documentation, we have installed `genymotion` and create a VM machine in Virtualbox to emulate `Google Nexus 10`
+For the reason explained within the ionic documentation, we have installed `genymotion` and create a VM machine in Virtualbox to emulate `Google Nexus 10`
 
 ```
-ionic emulate android
+We launch the Samsung Galaxy VM Box
+VBoxManage list vms
+VBoxManage startvm gui {38ec0571-d491-4a68-aea6-a67749e89ff1}
+
+or launch genymotion client manually
+
+ionic run android
 ionic run ios
 ```
 
