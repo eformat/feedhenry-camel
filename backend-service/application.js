@@ -33,6 +33,12 @@ app.use(express.static(__dirname + '/public'));
 // Note: important that this is added just before your own Routes
 app.use(mbaasExpress.fhmiddleware());
 
+app.use('/box/srv/1.1/app/init', function(req, res){
+  res.json({
+    hosts: {url: 'http://localhost:8001'}
+  });
+});
+
 app.get('/articles', blogService.findAll);
 app.get('/articles/searchid/:id', blogService.findById);
 app.get('/articles/searchuser/:user', blogService.findByUser)
