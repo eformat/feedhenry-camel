@@ -216,6 +216,32 @@ ionic run ios
 Remark : 
 - Check with ionic team how we could pass the parameter of the url to be used
 - Test with Ios 6 as we have permissions issues on android Samsung
+- To select the device to be used `os-sim showdevicetypes` and then `onic emulate ios --target="iPhone-6s-Plus"`. There is a problem as the cordova ios devices listed doesn't correspond to the list reported by os-sim ...
+- Trick : Check within the run.js file, the supported device and run ionic emulate ios --target="iPhone-6-Plus"` 
+
+```
+var validTargets = ['iPhone-4s', 'iPhone-5', 'iPhone-5s', 'iPhone-6-Plus', 'iPhone-6',
+                    'iPad-2', 'iPad-Retina', 'iPad-Air', 'Resizable-iPhone', 'Resizable-iPad'];
+```
+
+* Screen orientation
+
+- Add cordova plugin
+
+```
+cordova plugin add cordova-plugin-screen-orientation
+```
+
+- Chane syntax within the controller to unlock screen rotation
+
+```
+blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
+
+    ionic.Platform.ready(function () {
+        console.log('platform ready');
+        screen.unlockOrientation();
+    })
+``    
 
 * To collect Android logs
 

@@ -1,8 +1,13 @@
 'use strict';
 
-var blog = angular.module('blog.controllers', ['blog.services']);
+var blog = angular.module('blog.controllers', ['ionic', 'blog.services']);
 
 blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
+
+    ionic.Platform.ready(function () {
+        console.log('platform ready');
+        screen.unlockOrientation();
+    })
 
     $scope.addArticle = function (article) {
 
