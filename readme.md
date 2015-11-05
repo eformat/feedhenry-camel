@@ -2,7 +2,7 @@
 
 To run this project locally instead of using the `feedhenry.openshift.com` server, some modifications have been done within the code generated as described hereafter.
 
-![Mobile Camel](./images/mobile-camel-1.png =250x250)
+<img src="https://github.com/cmoulliard/feedhenry-camel/blob/master/images/mobile-camel-1.png" width="48"/>
 
 ## Modifications done on the generated code of Feedhenry
 
