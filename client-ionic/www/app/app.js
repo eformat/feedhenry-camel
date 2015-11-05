@@ -71,6 +71,7 @@ var blog = angular.module('blog', ['ionic',
 blog.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     $ionicConfigProvider.views.maxCache(0);
+    $ionicConfigProvider.scrolling.jsScrolling(false);
 
     $stateProvider
         .state('app', {

@@ -2,11 +2,7 @@
   <ion-content>
     <ion-list>
         <ion-item ng-repeat="article in articles | orderBy:['user','title']" href="#/app/article/{{article.id}}">
-            <div class="row">
-                <div class="col col-50">Title : {{article.title}}</div>
-                <div class="col col-25">posted on : {{article.postDate}}</div>
-                <div class="col col-25">by : {{article.user}}</div>
-            </div>
+            {{article.title}}, posted {{article.postDate}}, by {{article.user}}
         </ion-item>
     </ion-list>
   </ion-content>

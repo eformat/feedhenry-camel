@@ -241,7 +241,7 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
         console.log('platform ready');
         screen.unlockOrientation();
     })
-``    
+```    
 
 * To collect Android logs
 
