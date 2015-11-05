@@ -35,7 +35,7 @@ app.use(mbaasExpress.fhmiddleware());
 
 app.use('/box/srv/1.1/app/init', function(req, res){
   res.json({
-    hosts: {url: 'http://mobilehost:8001'}
+    hosts: {url: 'http://localhost:8001'}
   });
 });
 

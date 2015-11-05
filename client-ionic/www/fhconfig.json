@@ -3,6 +3,6 @@
   "appkey": "",
   "apptitle": "My Feedhenry JBoss Fuse App",
   "connectiontag": "1.0.0",
-  "host": "http://mobilehost:8001",
+  "host": "http://localhost:8001",
   "projectid": ""
 }
