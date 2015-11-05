@@ -4,6 +4,7 @@ To run this project locally instead of using the `feedhenry.openshift.com` serve
 
 | <img src="https://github.com/cmoulliard/feedhenry-camel/blob/master/images/mobile-camel-1.png" width="200"/>  | <img src="https://github.com/cmoulliard/feedhenry-camel/blob/master/images/mobile-camel-2.png" width="200"/>  | <img src="https://github.com/cmoulliard/feedhenry-camel/blob/master/images/mobile-camel-3.png" width="200"/>  | <img src="https://github.com/cmoulliard/feedhenry-camel/blob/master/images/mobile-camel-4.png" width="200"/>  |
 
+Remark : The application can be started in emulation mode with IoS but not yet with Android
 
 ## Modifications done on the generated code of Feedhenry
 
