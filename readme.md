@@ -2,6 +2,8 @@
 
 To run this project locally instead of using the `feedhenry.openshift.com` server, some modifications have been done within the code generated as described hereafter.
 
+![Mobile Camel](/images/mobile-camel-1.png.png)
+
 ## Modifications done on the generated code of Feedhenry
 
 * Change the port number of the `mbaas-service/application.js` file to run on 8010 by editing the application.js file 
