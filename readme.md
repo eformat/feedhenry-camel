@@ -236,7 +236,7 @@ var validTargets = ['iPhone-4s', 'iPhone-5', 'iPhone-5s', 'iPhone-6-Plus', 'iPho
 cordova plugin add cordova-plugin-screen-orientation
 ```
 
-- Chane syntax within the controller to unlock screen rotation
+- Chagne syntax within the controller to unlock screen rotation
 
 ```
 blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleService) {
@@ -245,7 +245,12 @@ blog.controller('ArticlesCtrl', function ($scope, fhcloud, $ionicModal, articleS
         console.log('platform ready');
         screen.unlockOrientation();
     })
-```    
+```   
+ 
+Remarks: 
+
+- The cordova plugin & screen unlockOrientation seems to only work within Ios & not Android 
+- Run `ionic run android` command when virtualbox is not working
 
 * To collect Android logs
 
